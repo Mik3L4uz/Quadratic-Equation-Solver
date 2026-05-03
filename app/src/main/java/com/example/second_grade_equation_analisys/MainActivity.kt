@@ -1,5 +1,6 @@
 package com.example.second_grade_equation_analisys
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -14,28 +15,26 @@ import kotlin.math.sqrt
 import kotlin.math.abs
 class MainActivity : AppCompatActivity() {
 
-    lateinit var a : EditText
+    lateinit var a: EditText
 
-    lateinit var b : EditText
+    lateinit var b: EditText
 
-    lateinit var c : EditText
-
-
-    lateinit var bottonesoluzione : Button
+    lateinit var c: EditText
 
 
-    lateinit var risultato1 : TextView
+    lateinit var bottonesoluzione: Button
 
 
-    lateinit var risultato2 : TextView
+    lateinit var risultato1: TextView
 
 
-    lateinit var bottonegrafico : Button
+    lateinit var risultato2: TextView
 
 
-    lateinit var errore : TextView
+    lateinit var bottonegrafico: Button
 
 
+    lateinit var errore: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,59 +66,58 @@ class MainActivity : AppCompatActivity() {
 
         bottonesoluzione.setOnClickListener {
             // reset messaggio errore
-            errore.text=""
+            errore.text = ""
+            bottonegrafico.isEnabled=false
+
 
             // assegazione valori
-            var valore_a = a.text.toString().toDoubleOrNull()?:0.0
-            var valore_b = b.text.toString().toDoubleOrNull()?:0.0
-            var valore_c = c.text.toString().toDoubleOrNull()?:0.0
+            var valore_a = a.text.toString().toDoubleOrNull() ?: 0.0
+            var valore_b = b.text.toString().toDoubleOrNull() ?: 0.0
+            var valore_c = c.text.toString().toDoubleOrNull() ?: 0.0
 
-            if (valore_a==0.0){
-            errore.text="\"a\" must be provided with a value"
-            }
-
-            else if (valore_b == 0.0 && valore_c == 0.0){
+            if (valore_a == 0.0) {
+                errore.text = "\"a\" must be provided with a value"
+            } else if (valore_b == 0.0 && valore_c == 0.0) {
                 risultato1.text = "without \"b\" and \"c\" the result will always be only one: 0"
-            }
-            else {    // utilizzo formula standard eq 2° grado
+            } else {    // utilizzo formula standard eq 2° grado
 
                 //valore delta minimo per confronto finale
                 val cock = 1e-10
 
                 var menob2 = -(valore_b)
 
-                var delta = sqrt( (valore_b.pow(2)) + (-4 *valore_a * valore_c))
+                var delta = sqrt((valore_b.pow(2)) + (-4 * valore_a * valore_c))
 
                 //controllo delta e calcolo finale
 
-                if (abs(delta) < cock){ // confronto in caso di numeri molto piccolini
-                    risultato1.text = "x1 = " + (( menob2) / 2 * valore_a ).toString()
-                    risultato2.text = "x2 = " + (( menob2) / 2 * valore_a ).toString()
-                }
-                else if (abs(delta) > cock){
-                    risultato1.text = "x1 = " + ((menob2 + delta) / 2*valore_a).toString()
-                    risultato2.text = "x2 = " + ((menob2 - delta) / 2*valore_a).toString()
-                }
-                else {
-                    errore.text="delta (b^2-4ac) is a negative value"
+                if (abs(delta) < cock) { // confronto in caso di numeri molto piccolini
+                    risultato1.text = "x1 = " + ((menob2) / 2 * valore_a).toString()
+                    risultato2.text = "x2 = " + ((menob2) / 2 * valore_a).toString()
+                    bottonegrafico.isEnabled=true
+
+                } else if (abs(delta) > cock) {
+                    risultato1.text = "x1 = " + ((menob2 + delta) / 2 * valore_a).toString()
+                    risultato2.text = "x2 = " + ((menob2 - delta) / 2 * valore_a).toString()
+                    bottonegrafico.isEnabled=true
+                } else {
+                    errore.text = "delta (b^2-4ac) is a negative value"
                 }
 
-                //bottonegrafico.setOnClickListener {
-                //    val intent = Intent(this, SecondActivity::class.java)
-                //    startActivity(intent)
-                }
+
             }
+            bottonegrafico.setOnClickListener {
+                val schedagrafico = Intent(this, grafichetto::class.java)
 
+                intent.putExtra("EXTRA_A", valore_a)
+                intent.putExtra("EXTRA_B", valore_b)
+                intent.putExtra("EXTRA_C", valore_c)
 
+                startActivity(schedagrafico)
 
-
-
+            }
 
         }
 
 
-
-
-
-
     }
+}
