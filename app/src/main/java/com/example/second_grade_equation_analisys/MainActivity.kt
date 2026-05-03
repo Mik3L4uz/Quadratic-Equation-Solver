@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import org.w3c.dom.Text
 import kotlin.math.pow
 import kotlin.math.sqrt
+import kotlin.math.abs
 class MainActivity : AppCompatActivity() {
 
     lateinit var a : EditText
@@ -65,62 +66,55 @@ class MainActivity : AppCompatActivity() {
 
 
         bottonesoluzione.setOnClickListener {
+            // reset messaggio errore
+            errore.text=""
+
             // assegazione valori
-            var valore_a = a.text.toString().toDoubleOrNull()
-            var valore_b = b.text.toString().toDoubleOrNull()
-            var valore_c = c.text.toString().toDoubleOrNull()
+            var valore_a = a.text.toString().toDoubleOrNull()?:0.0
+            var valore_b = b.text.toString().toDoubleOrNull()?:0.0
+            var valore_c = c.text.toString().toDoubleOrNull()?:0.0
 
-            var ris1 = 0
-            var ris2 = 0
-
-
-            if ( valore_a == null || valore_b == null || valore_c == null){
-                if (valore_a == null){ // controllo se manca a
-                    errore.text = "a must be provided with a value"
-                }
-                else if (valore_b == null && valore_c == null ){
-                    ris1 = 0
-                    ris2 = 0
-                }
-                else if (valore_b == null){
-                    if ((valore_c/valore_a)>=0) // calcolo delta
-                    {
-                        ris1 = sqrt(  -( valore_c/valore_a) )
-                        ris2 =  -ris1
-                    }
-                    else{
-                        errore.text= "delta (b^2-4ac) is a negative value"
-                    }
-                }
-                else if (valore_c == null){
-                    ris1 = 0
-                    ris2 = -(valore_b / valore_a) // calcolo della x quando c non c'è
-                }
-
+            if (valore_a==0.0){
+            errore.text="\"a\" must be provided with a value"
             }
-            if ( valore_a == null && valore_b == null && valore_c == null){
-                errore.text = "insert at leat 2 values in gaps (a must have one)"
+
+            else if (valore_b == 0.0 && valore_c == 0.0){
+                risultato1.text = "without \"b\" and \"c\" the result will always be only one: 0"
             }
-            else if (valore_a != null && valore_b != null && valore_c != null){ // utilizzo formula standard eq 2° grado
+            else {    // utilizzo formula standard eq 2° grado
+
+                //valore delta minimo per confronto finale
+                val cock = 1e-10
 
                 var menob2 = -(valore_b.pow(2))
 
-                var delta = sqrt( valore_b.pow(2) -4 *valore_a*valore_c )
+                var delta = sqrt( (valore_b.pow(2)) - (4 *valore_a * valore_c))
+
+                //controllo delta e calcolo finale
+
 
                 if (delta >=0){
-                    ris1 = (menob2 + delta) / 2*valore_a
-                    ris2 = (menob2 - delta) / 2*valore_a
+                    risultato1.text = ((menob2 + delta) / 2*valore_a).toString()
+                    risultato2.text = ((menob2 - delta) / 2*valore_a).toString()
                 }
-                else if (delta == 0){
-                    ris1 = (menob2) / 2*valore_a
-                    ris2 = ris1
+                else if (abs(delta) < cock){ // confronto in caso di numeri molto piccolini
+                    risultato1.text = (( menob2) / 2 * valore_a ).toString()
+                    risultato2.text = (risultato1.text).toString()
+                    bottonegrafico.isEnabled = false
                 }
                 else {
-
                     errore.text="delta (b^2-4ac) is a negative value"
                 }
 
+                bottonegrafico.setOnClickListener {
+                    val intent = Intent(this, SecondActivity::class.java)
+                    startActivity(intent)
+                }
             }
+
+
+
+
 
 
         }
