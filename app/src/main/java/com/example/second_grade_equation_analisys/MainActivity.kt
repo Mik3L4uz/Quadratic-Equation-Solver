@@ -49,18 +49,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         // dichiarazione valori equazioni
-        a = findViewById<EditText>(R.id.editTextText)
-        b = findViewById<EditText>(R.id.editTextText2)
-        c = findViewById<EditText>(R.id.editTextText3)
+        a = findViewById<EditText>(R.id.A)
+        b = findViewById<EditText>(R.id.B)
+        c = findViewById<EditText>(R.id.C)
 
         // dichiarazione bottoni
-        bottonesoluzione = findViewById<Button>(R.id.bottonesolution)
-        bottonegrafico = findViewById<Button>(R.id.bottonegrafico)
+        bottonesoluzione = findViewById<Button>(R.id.button)
+        bottonegrafico = findViewById<Button>(R.id.buttonGraph)
 
         // dichiarazione TextView
-        risultato1 = findViewById<TextView>(R.id.ris1)
-        risultato2 = findViewById<TextView>(R.id.ris2)
-        errore = findViewById<TextView>(R.id.mess_err)
+        risultato1 = findViewById<TextView>(R.id.x1)
+        risultato2 = findViewById<TextView>(R.id.x2)
+        errore = findViewById<TextView>(R.id.errorText)
 
 
 
@@ -86,29 +86,27 @@ class MainActivity : AppCompatActivity() {
                 //valore delta minimo per confronto finale
                 val cock = 1e-10
 
-                var menob2 = -(valore_b.pow(2))
+                var menob2 = -(valore_b)
 
-                var delta = sqrt( (valore_b.pow(2)) - (4 *valore_a * valore_c))
+                var delta = sqrt( (valore_b.pow(2)) + (-4 *valore_a * valore_c))
 
                 //controllo delta e calcolo finale
 
-
-                if (delta >=0){
-                    risultato1.text = ((menob2 + delta) / 2*valore_a).toString()
-                    risultato2.text = ((menob2 - delta) / 2*valore_a).toString()
+                if (abs(delta) < cock){ // confronto in caso di numeri molto piccolini
+                    risultato1.text = "x1 = " + (( menob2) / 2 * valore_a ).toString()
+                    risultato2.text = "x2 = " + (( menob2) / 2 * valore_a ).toString()
                 }
-                else if (abs(delta) < cock){ // confronto in caso di numeri molto piccolini
-                    risultato1.text = (( menob2) / 2 * valore_a ).toString()
-                    risultato2.text = (risultato1.text).toString()
-                    bottonegrafico.isEnabled = false
+                else if (abs(delta) > cock){
+                    risultato1.text = "x1 = " + ((menob2 + delta) / 2*valore_a).toString()
+                    risultato2.text = "x2 = " + ((menob2 - delta) / 2*valore_a).toString()
                 }
                 else {
                     errore.text="delta (b^2-4ac) is a negative value"
                 }
 
-                bottonegrafico.setOnClickListener {
-                    val intent = Intent(this, SecondActivity::class.java)
-                    startActivity(intent)
+                //bottonegrafico.setOnClickListener {
+                //    val intent = Intent(this, SecondActivity::class.java)
+                //    startActivity(intent)
                 }
             }
 
@@ -125,4 +123,3 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-}

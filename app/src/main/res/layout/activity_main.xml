@@ -38,7 +38,7 @@
 
     <!-- INPUT A -->
     <EditText
-        android:id="@+id/editTextA"
+        android:id="@+id/A"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:hint="A"
@@ -52,13 +52,13 @@
 
     <!-- INPUT B -->
     <EditText
-        android:id="@+id/editTextB"
+        android:id="@+id/B"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:hint="B"
         android:gravity="center"
         android:background="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/editTextA"
+        app:layout_constraintTop_toBottomOf="@id/A"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,13 +66,13 @@
 
     <!-- INPUT C -->
     <EditText
-        android:id="@+id/editTextC"
+        android:id="@+id/C"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:hint="C"
         android:gravity="center"
         android:background="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/editTextB"
+        app:layout_constraintTop_toBottomOf="@id/B"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
         android:textStyle="bold"
         android:textColor="#000000"
         android:backgroundTint="#A78BFA"
-        app:layout_constraintTop_toBottomOf="@id/editTextC"
+        app:layout_constraintTop_toBottomOf="@id/C"
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,24 +138,31 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/x1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="X1= "
+        android:text="x1"
         android:textColor="#FFFAFA"
+        android:textSize="8pt"
         app:layout_constraintBottom_toTopOf="@+id/buttonGraph"
-        app:layout_constraintEnd_toStartOf="@+id/resultTitle"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultTitle"
+        app:layout_constraintVertical_bias="0.445" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/x2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X2= "
+        android:text="x2"
         android:textColor="#E3DFD9"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGraph"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/resultTitle"
-        tools:layout_editor_absoluteY="499dp" />
+        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultTitle"
+        app:layout_constraintVertical_bias="0.445" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
