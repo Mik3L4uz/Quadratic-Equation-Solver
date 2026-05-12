@@ -91,13 +91,13 @@ class MainActivity : AppCompatActivity() {
                 //controllo delta e calcolo finale
 
                 if (abs(delta) < cock) { // confronto in caso di numeri molto piccolini
-                    risultato1.text = "x1 = " + ((menob2) / 2 * valore_a).toString()
-                    risultato2.text = "x2 = " + ((menob2) / 2 * valore_a).toString()
+                    risultato1.text = "x1 = %.3f".format((menob2) / 2 * valore_a).toString()
+                    risultato2.text = "x2 = %.3f".format((menob2) / 2 * valore_a).toString()
                     bottonegrafico.isEnabled=true
 
                 } else if (abs(delta) > cock) {
-                    risultato1.text = "x1 = " + ((menob2 + delta) / 2 * valore_a).toString()
-                    risultato2.text = "x2 = " + ((menob2 - delta) / 2 * valore_a).toString()
+                    risultato1.text = "x1 = %.3f".format((menob2 + delta) / (2 * valore_a))
+                    risultato2.text = "x2 = %.3f".format((menob2 - delta) / (2 * valore_a))
                     bottonegrafico.isEnabled=true
                 } else {
                     errore.text = "delta (b^2-4ac) is a negative value"
@@ -108,9 +108,9 @@ class MainActivity : AppCompatActivity() {
             bottonegrafico.setOnClickListener {
                 val schedagrafico = Intent(this, grafichetto::class.java)
 
-                intent.putExtra("EXTRA_A", valore_a)
-                intent.putExtra("EXTRA_B", valore_b)
-                intent.putExtra("EXTRA_C", valore_c)
+                schedagrafico.putExtra("EXTRA_A", valore_a.toDouble())
+                schedagrafico.putExtra("EXTRA_B", valore_b.toDouble())
+                schedagrafico.putExtra("EXTRA_C", valore_c.toDouble())
 
                 startActivity(schedagrafico)
 
