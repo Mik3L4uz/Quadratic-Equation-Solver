@@ -100,7 +100,13 @@ class MainActivity : AppCompatActivity() {
                     risultato2.text = "x2 = %.3f".format((menob2 - delta) / (2 * valore_a))
                     bottonegrafico.isEnabled=true
                 } else {
-                    errore.text = "delta (b^2-4ac) is a negative value"
+                    // calcolo con numeri immaginari
+                    var parte_r = "%.2f".format((-valore_b / 2*valore_a))
+                    var parte_i = "%.2f".format(sqrt(abs(valore_b.pow(2)-4*valore_a*valore_c))/2)
+                    var parte_i_i ="%.2f".format(-sqrt(abs(valore_b.pow(2)-4*valore_a*valore_c))/2)
+                    errore.text = "Delta is a negative value, only showed complex solutions"
+                    risultato1.text = "x1 = $parte_r  +${parte_i}i"
+                    risultato2.text = "x2 = $parte_r  ${parte_i_i}i"
                 }
 
 
