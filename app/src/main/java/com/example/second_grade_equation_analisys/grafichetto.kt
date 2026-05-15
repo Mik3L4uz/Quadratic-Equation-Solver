@@ -41,7 +41,7 @@ class grafichetto : AppCompatActivity() {
             x += 0.5f // Passo del grafico (più è piccolo, più la curva è fluida)
         }
 
-        val dataSet = LineDataSet(valori, "Equazione: ${a}x² + ${b}x + $c")
+        val dataSet = LineDataSet(valori, "Equation: ${a}x² + ${b}x + $c")
         dataSet.color = Color.BLUE
         dataSet.setDrawCircles(false) // Rimuove i pallini sui punti per una linea continua
         dataSet.lineWidth = 2f
